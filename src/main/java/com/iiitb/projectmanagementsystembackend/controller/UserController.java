@@ -16,7 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -31,6 +34,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
@@ -52,6 +57,13 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasRole('MANAGER')")
+    @RequestMapping(value="/managerping", method = RequestMethod.GET)
+    public ResponseEntity<?> managerPing(){
+        Map<String ,String> res = new HashMap<>();
+        res.put("msg","Only Manager Can Read This");
+        return ResponseEntity.ok(res);
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/adminping", method = RequestMethod.GET)
@@ -59,10 +71,13 @@ public class UserController {
         return "Only Admins Can Read This";
     }
 
-    @PreAuthorize("hasRole('USER')")
-    @RequestMapping(value="/userping", method = RequestMethod.GET)
-    public String userPing(){
-        return "Any User Can Read This";
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @RequestMapping(value="/employeeping", method = RequestMethod.GET)
+    public ResponseEntity<?> employeePing(){
+        Map<String ,String> res = new HashMap<>();
+        res.put("msg","Only Employee Can Read This");
+        return ResponseEntity.ok(res);
     }
+
 
 }

@@ -24,8 +24,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Value("${jwt.header.string}")
     public String HEADER_STRING;
 
-    @Value("${jwt.token.prefix}")
-    public String TOKEN_PREFIX;
+//    @Value("${jwt.token.prefix}")
+    public String TOKEN_PREFIX = "Bearer ";
 
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;
@@ -36,10 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
+        System.out.println(header);
         String username = null;
         String authToken = null;
         if (header != null && header.startsWith(TOKEN_PREFIX)) {
-            authToken = header.replace(TOKEN_PREFIX,"");
+            authToken = header.substring(7);
+            System.out.println(authToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
