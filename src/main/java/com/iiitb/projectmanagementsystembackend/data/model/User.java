@@ -3,7 +3,8 @@ package com.iiitb.projectmanagementsystembackend.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.*;
 
 @Entity
 public class User {
@@ -28,8 +29,21 @@ public class User {
     @Column
     private String name;
 
+
     @Column
     private String businessTitle;
+
+    @ManyToOne
+    @JoinColumn(name="project_id")
+    private Project project;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES",
