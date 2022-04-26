@@ -32,10 +32,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Create a new .env file
       run: |
-        cp .envi.ci .env
-        mvn -B package --file pom.xml
+        touch .env
+        echo DB_CONNECTION=mysql >> .env
+        echo DB_HOST=mysql >> .env
+        echo DB_PORT=3306 >> .env
+        echo DB_DATABASE=projectmanagementsystem >> .env
+        echo DB_USERNAME=root >> .env
+        echo DB_PASSWORD=password >> .env
+        
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
     - name: Test with Maven
       run: mvn test
       
