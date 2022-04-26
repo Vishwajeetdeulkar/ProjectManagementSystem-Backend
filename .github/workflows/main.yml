@@ -18,10 +18,10 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_DATABASE: jeremyuniversity
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: projectmanagementsystem
         ports:
-        - 3306
+          - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
@@ -33,7 +33,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: |
+        cp .envi.ci .env
+        mvn -B package --file pom.xml
     - name: Test with Maven
       run: mvn test
       
