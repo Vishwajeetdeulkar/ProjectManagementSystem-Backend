@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-test:
+  build:
 
     runs-on: ubuntu-latest
     
@@ -46,10 +46,7 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Test with Maven
       run: mvn test
-  docker-build-push:
-    needs: build-test
-    runs-on: ubuntu-latest
-    steps:
+      
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
