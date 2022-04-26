@@ -47,6 +47,7 @@ jobs:
     - name: Test with Maven
       run: mvn test
   docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Build and Push Docker Image
