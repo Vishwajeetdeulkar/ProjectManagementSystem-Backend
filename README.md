@@ -1,3 +1,3 @@
 # ProjectManagementSystem-Backend
 
-![Workflow status](https://github.com/Vishwajeetdeulkar/ProjectManagementSystem-Backend/workflows/main.yml/badge.svg)
+[![Java CI with Maven](https://github.com/Vishwajeetdeulkar/ProjectManagementSystem-Backend/actions/workflows/main.yml/badge.svg)](https://github.com/Vishwajeetdeulkar/ProjectManagementSystem-Backend/actions/workflows/main.yml)
