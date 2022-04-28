@@ -59,6 +59,15 @@ public class UserDto {
         this.businessTitle = businessTitle;
     }
 
+    public UserDto(String username, String password, String email, String phone, String name, String businessTitle) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.name = name;
+        this.businessTitle = businessTitle;
+    }
+
     public User getUserFromDto(){
         User user = new User();
         user.setUsername(username);
