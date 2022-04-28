@@ -117,4 +117,17 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    public User(){}
+    public User(long id, String username, String password, String email, String phone, String name, String businessTitle, Project project, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.name = name;
+        this.businessTitle = businessTitle;
+        this.project = project;
+        this.roles = roles;
+    }
+
 }
