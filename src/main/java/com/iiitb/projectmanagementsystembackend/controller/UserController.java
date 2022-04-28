@@ -40,6 +40,8 @@ public class UserController {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
+        System.out.println(loginUser.getPassword());
+        System.out.println(loginUser.getUsername());
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getUsername(),
@@ -67,8 +69,10 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/adminping", method = RequestMethod.GET)
-    public String adminPing(){
-        return "Only Admins Can Read This";
+    public ResponseEntity<?> adminPing(){
+        Map<String ,String> res = new HashMap<>();
+        res.put("msg","Only admin Can Read This");
+        return ResponseEntity.ok(res);
     }
 
     @PreAuthorize("hasRole('EMPLOYEE')")
