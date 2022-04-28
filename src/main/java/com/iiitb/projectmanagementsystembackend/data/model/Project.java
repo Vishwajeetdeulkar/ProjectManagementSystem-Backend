@@ -16,14 +16,22 @@ public class Project {
     @Column
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id")
     private Set<User> users;
 
-    public Project(long id, String projectname, String description, Set<User> users) {
+    @OneToMany(mappedBy = "id")
+    private Set<Task> task;
+
+    @OneToOne
+    private EffortTable effortTable;
+
+    public Project(long id, String projectname, String description, Set<User> users, Set<Task> task, EffortTable effortTable) {
         this.id = id;
         this.projectname = projectname;
         this.description = description;
         this.users = users;
+        this.task = task;
+        this.effortTable = effortTable;
     }
 
     public long getId() {
@@ -62,6 +70,19 @@ public class Project {
 
     }
 
+    public Set<Task> getTask() {
+        return task;
+    }
 
+    public void setTask(Set<Task> task) {
+        this.task = task;
+    }
 
+    public EffortTable getEffortTable() {
+        return effortTable;
+    }
+
+    public void setEffortTable(EffortTable effortTable) {
+        this.effortTable = effortTable;
+    }
 }
