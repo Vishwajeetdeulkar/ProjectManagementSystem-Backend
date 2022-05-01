@@ -1,7 +1,10 @@
 package com.iiitb.projectmanagementsystembackend.data.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
@@ -35,6 +38,7 @@ public class Role {
     public String getDescription() {
         return description;
     }
+
 
     public void setDescription(String description) {
         this.description = description;

@@ -1,6 +1,8 @@
 package com.iiitb.projectmanagementsystembackend.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,13 +18,19 @@ public class Project {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "PROJECT_USER",
+            joinColumns = {
+                    @JoinColumn(name = "PROJECT_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "USER_ID") })
     private Set<User> users;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
     private Set<Task> task;
 
-    @OneToOne
+    @OneToOne(mappedBy = "project",cascade = CascadeType.REMOVE)
     private EffortTable effortTable;
 
     public Project(long id, String projectname, String description, Set<User> users, Set<Task> task, EffortTable effortTable) {

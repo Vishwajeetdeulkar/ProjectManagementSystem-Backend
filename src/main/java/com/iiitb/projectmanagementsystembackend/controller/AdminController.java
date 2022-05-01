@@ -37,4 +37,8 @@ public class AdminController {
         Map<String,String> res = adminService.deleteUser(param);
         return ResponseEntity.ok(res);
     }
+
+
+
+
 }

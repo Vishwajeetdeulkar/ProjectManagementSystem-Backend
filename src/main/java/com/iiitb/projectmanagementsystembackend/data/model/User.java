@@ -2,11 +2,14 @@ package com.iiitb.projectmanagementsystembackend.data.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","roles"})
 public class User {
 
     @Id
@@ -37,23 +40,7 @@ public class User {
 //    @JoinColumn(name="project_id")
 //    private Project project;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_PROJECTS",
-            joinColumns = {
-                    @JoinColumn(name = "USER_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "PROJECT_ID") })
-    private Set<Project> projects;
 
-
-    public Set<Project> getProject() {
-        return projects;
-    }
-
-    public void setProject(Set<Project> projects) {
-        this.projects = projects;
-    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLES",
@@ -128,7 +115,7 @@ public class User {
         this.roles = roles;
     }
     public User(){}
-    public User(long id, String username, String password, String email, String phone, String name, String businessTitle, Set<Project> projects, Set<Role> roles) {
+    public User(long id, String username, String password, String email, String phone, String name, String businessTitle,  Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -136,7 +123,6 @@ public class User {
         this.phone = phone;
         this.name = name;
         this.businessTitle = businessTitle;
-        this.projects = projects;
         this.roles = roles;
     }
 

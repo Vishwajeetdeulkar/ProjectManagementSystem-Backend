@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TaskStatusLuDao extends CrudRepository<TaskStatusLu,Long> {
-
+    public TaskStatusLu findById(long id);
 }

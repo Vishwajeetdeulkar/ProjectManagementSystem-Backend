@@ -1,11 +1,14 @@
 package com.iiitb.projectmanagementsystembackend.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","project"})
 public class EffortTable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -26,9 +29,6 @@ public class EffortTable {
     @Column
     private int projectManagementHours;
 
-    @Column
-    private Date date;
-
     @OneToOne
     @JoinColumn(name = "project_id")
     private Project project;
@@ -37,14 +37,13 @@ public class EffortTable {
 
     }
 
-    public EffortTable(long id, int requirementAnalysisHours, int designingHours, int codingHours, int testingHours, int projectManagementHours, Date date, Project project) {
+    public EffortTable(long id, int requirementAnalysisHours, int designingHours, int codingHours, int testingHours, int projectManagementHours,  Project project) {
         this.id = id;
         this.requirementAnalysisHours = requirementAnalysisHours;
         this.designingHours = designingHours;
         this.codingHours = codingHours;
         this.testingHours = testingHours;
         this.projectManagementHours = projectManagementHours;
-        this.date = date;
         this.project = project;
     }
 
@@ -96,13 +95,6 @@ public class EffortTable {
         this.projectManagementHours = projectManagementHours;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public Project getProject() {
         return project;
