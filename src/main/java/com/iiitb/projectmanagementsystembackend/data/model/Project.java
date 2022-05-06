@@ -1,6 +1,8 @@
 package com.iiitb.projectmanagementsystembackend.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,14 +18,28 @@ public class Project {
     @Column
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "PROJECT_USER",
+            joinColumns = {
+                    @JoinColumn(name = "PROJECT_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "USER_ID") })
     private Set<User> users;
 
-    public Project(long id, String projectname, String description, Set<User> users) {
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
+    private Set<Task> task;
+
+    @OneToOne(mappedBy = "project",cascade = CascadeType.REMOVE)
+    private EffortTable effortTable;
+
+    public Project(long id, String projectname, String description, Set<User> users, Set<Task> task, EffortTable effortTable) {
         this.id = id;
         this.projectname = projectname;
         this.description = description;
         this.users = users;
+        this.task = task;
+        this.effortTable = effortTable;
     }
 
     public long getId() {
@@ -62,6 +78,19 @@ public class Project {
 
     }
 
+    public Set<Task> getTask() {
+        return task;
+    }
 
+    public void setTask(Set<Task> task) {
+        this.task = task;
+    }
 
+    public EffortTable getEffortTable() {
+        return effortTable;
+    }
+
+    public void setEffortTable(EffortTable effortTable) {
+        this.effortTable = effortTable;
+    }
 }
