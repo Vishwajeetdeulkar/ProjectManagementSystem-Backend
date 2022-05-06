@@ -3,6 +3,8 @@ package com.iiitb.projectmanagementsystembackend.controller;
 import com.iiitb.projectmanagementsystembackend.data.model.Project;
 import com.iiitb.projectmanagementsystembackend.data.model.User;
 import com.iiitb.projectmanagementsystembackend.service.ManagerService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.weaver.patterns.PerObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +20,17 @@ import java.util.Map;
 @RequestMapping("/manager")
 public class ManagerController {
 
+    private static final Logger logger = LogManager.getLogger("ProjectManagementSystem");
+
     @Autowired
     private ManagerService managerService;
 
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
     public ResponseEntity<?> addProject(@RequestBody Map<String,String> payload)
     {
-        System.out.println("in add project controller");
+        logger.info("[ManagerController] - [Add Project]");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        System.out.println(username);
         Project res = managerService.addProject(payload,username);
         res = managerService.initializeEffortTable(res);
         return  ResponseEntity.ok(res);
@@ -36,7 +39,7 @@ public class ManagerController {
     @RequestMapping(value = "/updateProject",method = RequestMethod.POST)
     public ResponseEntity<?> updateProject(@RequestBody Map<String,String> payload)
     {
-        System.out.println("In update project controller");
+        logger.info("[ManagerController] - [Update Project]");
         Project res = managerService.updateProject(payload);
         return ResponseEntity.ok(res);
     }
@@ -44,7 +47,7 @@ public class ManagerController {
     @RequestMapping(value = "/removeProject",method = RequestMethod.GET)
     public ResponseEntity<?> removeProject(@RequestParam Map<String,String> param)
     {
-        System.out.println("in remove project controller");
+        logger.info("[ManagerController] - [Remove Project]");
         Map<String ,String> res = managerService.removeProject(param);
         return ResponseEntity.ok(res);
     }
@@ -52,25 +55,25 @@ public class ManagerController {
     @RequestMapping(value = "/getAllProject", method = RequestMethod.GET)
     public ResponseEntity<?> getAllProject()
     {
-        System.out.println("in get project controller");
+        logger.info("[ManagerController] - [Get All Project]");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        System.out.println(username);
         List<Project> projects = managerService.getAllProject(username);
         return  ResponseEntity.ok(projects);
     }
 
     @RequestMapping(value = "/getFreeEmployee",method = RequestMethod.GET)
-    public ResponseEntity<?> getFreeEmployee(@RequestParam Map<String,String> param){
-        System.out.println("in get free employeecontroller");
+    public ResponseEntity<?> getFreeEmployee(@RequestParam Map<String,String> param)
+    {
+        logger.info("[ManagerController] - [Get Free Employee]");
         List<User> freeEmployee = managerService.getFreeEmployee(param);
         return ResponseEntity.ok(freeEmployee);
     }
 
     @RequestMapping(value = "/addUserToProject",method = RequestMethod.POST)
-    public ResponseEntity<?> addUserToProject(@RequestBody Map<String,Object> payload){
-        System.out.println("in add user to project controller");
-        System.out.println(payload.toString());
+    public ResponseEntity<?> addUserToProject(@RequestBody Map<String,Object> payload)
+    {
+        logger.info("[ManagerController] - [Add User TO Project]");
         Project res = managerService.addUserToProject(payload);
         return ResponseEntity.ok(res);
     }
@@ -78,24 +81,24 @@ public class ManagerController {
     @RequestMapping(value = "/removeUserFromProject",method = RequestMethod.GET)
     public ResponseEntity<?> removeUserFromProject(@RequestParam Map<String,String> param)
     {
-        System.out.println("in remove user from project controller");
+        logger.info("[ManagerController] - [Re,ove User From Project]");
         Project res = managerService.removeUserFromProject(param);
         return ResponseEntity.ok(res);
     }
 
 
     @RequestMapping(value = "/addTaskToProject",method = RequestMethod.POST)
-    public ResponseEntity<?> addTaskToProject(@RequestBody Map<String,String> payload){
-        System.out.println("in add Task to project controller");
-        System.out.println(payload.toString());
+    public ResponseEntity<?> addTaskToProject(@RequestBody Map<String,String> payload)
+    {
+        logger.info("[ManagerController] - [Add Task To Project]");
         Project res = managerService.addTaskToProject(payload);
         return ResponseEntity.ok(res);
     }
 
     @RequestMapping(value = "/removeTaskFromProject",method = RequestMethod.GET)
-    public ResponseEntity<?> removeUserTaskProject(@RequestParam Map<String,String> param)
+    public ResponseEntity<?> removeTaskFromProject(@RequestParam Map<String,String> param)
     {
-        System.out.println("in remove Task from project controller");
+        logger.info("[ManagerController] - [Remove Task From Project]");
         Project res = managerService.removeTaskFromProject(param);
         return ResponseEntity.ok(res);
     }
@@ -103,12 +106,8 @@ public class ManagerController {
     @RequestMapping(value = "/updateEffortTable",method = RequestMethod.POST)
     public ResponseEntity<?> updateEffortTable(@RequestBody Map<String,String> payload)
     {
-        System.out.println("In update effort table");
+        logger.info("[ManagerController] - [Update Effort Table]");
         Project res = managerService.updateEffortTable(payload);
         return ResponseEntity.ok(res);
     }
-
-
-
-
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.*;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","roles"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","roles"})
 public class User {
 
     @Id

@@ -45,7 +45,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Task> getAllTaskByProjectByUser(Map<String,String> param,String username)
     {
         long projectId = Long.parseLong(param.get("projectId"));
-        System.out.println(projectId);
         User user = userService.findOne(username);
         List<Task> taskList = taskDao.getAllByProjectAndUser(projectId,user.getId());
         return  taskList;
@@ -54,12 +53,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Task> updateTaskStatus(Map<String,String> payload,String username)
     {
-        System.out.println(payload.toString());
         long taskId = Long.parseLong(payload.get("taskId"));
         long statusLuId  = Long.parseLong(payload.get("statusId"));
         long projectId = Long.parseLong(payload.get("projectId"));
-        System.out.println(taskId);
-        System.out.println(statusLuId);
         Task task = taskDao.findById(taskId);
         TaskStatusLu taskStatusLu = taskStatusLuDao.findById(statusLuId);
         task.setStatusLu(taskStatusLu);
@@ -67,6 +63,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         User user = userService.findOne(username);
         List<Task> taskList = taskDao.getAllByProjectAndUser(projectId,user.getId());
         return  taskList;
-
     }
 }

@@ -3,6 +3,8 @@ package com.iiitb.projectmanagementsystembackend.controller;
 import com.iiitb.projectmanagementsystembackend.data.model.Project;
 import com.iiitb.projectmanagementsystembackend.data.model.Task;
 import com.iiitb.projectmanagementsystembackend.service.EmployeeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,16 +19,17 @@ import java.util.Map;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+    private static final Logger logger = LogManager.getLogger("ProjectManagementSystem");
+
     @Autowired
     private EmployeeService employeeService;
 
     @RequestMapping(value = "/getAllProjects",method = RequestMethod.GET)
     public ResponseEntity<?> getAllProjects()
     {
-        System.out.println("in get projects controller");
+        logger.info("[EmployeeController] - [Get All Projects]");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        System.out.println(username);
         List<Project> projects = employeeService.getAllProjects(username);
         return  ResponseEntity.ok(projects);
     }
@@ -34,10 +37,9 @@ public class EmployeeController {
     @RequestMapping(value = "/getTaskByProject",method = RequestMethod.GET)
     public ResponseEntity<?> getAllTaskByProjectByUser(@RequestParam Map<String,String> param)
     {
-        System.out.println("In get all task by project by user controller");
+        logger.info("[EmployeeController] - [Get All Task By Project By User]");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        System.out.println(username);
         List<Task> res = employeeService.getAllTaskByProjectByUser(param,username);
         return ResponseEntity.ok(res);
     }
@@ -45,10 +47,9 @@ public class EmployeeController {
     @RequestMapping(value = "/updateTaskStatus",method = RequestMethod.POST)
     public ResponseEntity<?> updateTaskStatus(@RequestBody Map<String,String> payload)
     {
-        System.out.println("In update task status controller");
+        logger.info("[EmployeeController] - [Update Task Status]");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        System.out.println(username);
         List<Task> res = employeeService.updateTaskStatus(payload,username);
         return ResponseEntity.ok(res);
     }

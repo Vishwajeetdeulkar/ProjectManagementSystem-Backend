@@ -36,23 +36,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
-        System.out.println(header);
         String username = null;
         String authToken = null;
         if (header != null && header.startsWith(TOKEN_PREFIX)) {
             authToken = header.substring(7);
-            System.out.println(authToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
-                logger.error("An error occurred while fetching Username from Token", e);
+                logger.error("[JWT Authentication Filter] - [An error occurred while fetching Username from Token]", e);
             } catch (ExpiredJwtException e) {
-                logger.warn("The token has expired", e);
+                logger.warn("[JWT Authentication Filter] - [The token has expired]", e);
             } catch(SignatureException e){
-                logger.error("Authentication Failed. Username or Password not valid.");
+                logger.error("[JWT Authentication Filter] - [Authentication Failed. Username or Password not valid.]");
             }
         } else {
-            logger.warn("Couldn't find bearer string, header will be ignored");
+            logger.warn("[JWT Authentication Filter] - [Couldn't find bearer string, header will be ignored]");
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
@@ -61,7 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthenticationToken(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                logger.info("authenticated user " + username + ", setting security context");
+                logger.info("[JWT Authentication Filter] - [authenticated user, setting security context]");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

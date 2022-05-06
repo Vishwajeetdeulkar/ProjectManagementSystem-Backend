@@ -33,8 +33,8 @@ public class ManagerServiceImpl implements ManagerService {
     private UserService userService;
 
     @Override
-    public List<Project> getAllProject(String username){
-
+    public List<Project> getAllProject(String username)
+    {
         List<Project> projects = new ArrayList<Project>();
         User user = userService.findOne(username);
         projectDao.getAllProjectByUserId(user.getId()).forEach(project -> projects.add(project));
@@ -42,7 +42,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Project addProject(Map<String,String> payload,String username){
+    public Project addProject(Map<String,String> payload,String username)
+    {
         Map<String,String> res = new HashMap<>();
         Project project = new Project();
         project.setProjectname(payload.get("name"));
@@ -52,8 +53,6 @@ public class ManagerServiceImpl implements ManagerService {
         usersSet.add(user);
         project.setUsers(usersSet);
         Project project1 = projectDao.save(project);
-
-
         return projectDao.findById(project1.getId());
     }
 
@@ -75,8 +74,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<User> getFreeEmployee(Map<String,String> param){
-        System.out.println("in get free employee service");
+    public List<User> getFreeEmployee(Map<String,String> param)
+    {
         long id = Long.parseLong(param.get("projectId"));
         List<User> freeEmployee = userDao.getFreeEmployee(id);
         return freeEmployee;
@@ -85,14 +84,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Project addUserToProject(Map<String,Object> payload)
     {
-//        System.out.println(param);
         long projectId = Long.valueOf((Integer)payload.get("projectId"));
         List<Integer> userIds = (List<Integer>)(payload.get("userId"));
-        System.out.println(userIds.toString());
         Project project = projectDao.findById(projectId);
         Set<User> userSet = project.getUsers();
         userIds.forEach((id) -> userSet.add((userDao.findById((long)Long.valueOf(id)))));
-//        userSet.add(userDao.findById(userId));
         project.setUsers(userSet);
         Project project1 = projectDao.save(project);
         return  project1;
@@ -113,7 +109,8 @@ public class ManagerServiceImpl implements ManagerService {
 
 
     @Override
-    public Project addTaskToProject(Map<String,String> payload){
+    public Project addTaskToProject(Map<String,String> payload)
+    {
         Project project = projectDao.findById(Long.parseLong(payload.get("projectId")));
         User user = userDao.findById(Long.parseLong(payload.get("userId")));
         TaskStatusLu taskStatusLu = taskStatusLuDao.findById(1);
@@ -129,7 +126,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Project removeTaskFromProject(Map<String,String> param){
+    public Project removeTaskFromProject(Map<String,String> param)
+    {
         taskDao.deleteById(Long.parseLong(param.get("taskId")));
         Project project= projectDao.findById(Long.parseLong(param.get("projectId")));
         return project;

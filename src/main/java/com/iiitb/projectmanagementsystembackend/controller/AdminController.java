@@ -2,6 +2,8 @@ package com.iiitb.projectmanagementsystembackend.controller;
 
 import com.iiitb.projectmanagementsystembackend.data.model.User;
 import com.iiitb.projectmanagementsystembackend.service.AdminService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,31 +16,32 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
+    private static final Logger logger = LogManager.getLogger("ProjectManagementSystem");
+
     @Autowired
     private AdminService adminService;
 
     @RequestMapping(value = "/getManagerData", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllManager(){
-        System.out.println("in admin get manager data controller");
+    public ResponseEntity<?> getAllManager()
+    {
+        logger.info("[AdminController] - [Get All Manager]");
         List<User> managers = adminService.getAllManager();
         return ResponseEntity.ok(managers);
     }
 
     @RequestMapping(value = "/getEmployeeData", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllEmployee(){
-        System.out.println("in admin get employee data controller");
+    public ResponseEntity<?> getAllEmployee()
+    {
+        logger.info("[AdminController] - [Get All Employee]");
         List<User> emps = adminService.getAllEmployee();
         return ResponseEntity.ok(emps);
     }
 
     @RequestMapping(value = "/deleteUser",method = RequestMethod.GET)
-    public ResponseEntity<?> deleteUser(@RequestParam Map<String,String> param){
-        System.out.println("in delete user controller");
+    public ResponseEntity<?> deleteUser(@RequestParam Map<String,String> param)
+    {
+        logger.info("[AdminController] - [Delete User]");
         Map<String,String> res = adminService.deleteUser(param);
         return ResponseEntity.ok(res);
     }
-
-
-
-
 }
