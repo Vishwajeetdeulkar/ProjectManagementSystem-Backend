@@ -1,5 +1,6 @@
 package com.iiitb.projectmanagementsystembackend;
 
+import com.iiitb.projectmanagementsystembackend.controller.UserController;
 import com.iiitb.projectmanagementsystembackend.data.model.Project;
 import com.iiitb.projectmanagementsystembackend.data.model.Role;
 import com.iiitb.projectmanagementsystembackend.data.model.User;
@@ -16,8 +17,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ProjectManagementSystemBackendApplication implements CommandLineRunner {
    // @Autowired
-    //UserDao ob;
+    //UserDao ob1;
     //private UserService ob;
+    //private UserDto user;
+   @Autowired
+   private UserService userService;
+    UserController ob = new UserController();
     public static void main(String[] args) {
         SpringApplication.run(ProjectManagementSystemBackendApplication.class, args);
     }
@@ -25,8 +30,8 @@ public class ProjectManagementSystemBackendApplication implements CommandLineRun
 
     @Override
     public void run(String... args) throws Exception {
-//       UserDto first = new UserDto("m1", "m", "m1@manager.org", "1234567789", "1234567789", "manager");
-//       ob.save(first);
+         UserDto first = new UserDto("admin", "admin", "admin@admin.org", "9960429909", "Neha Kothari", "admin");
+        userService.save(first);
 
     }
 }
