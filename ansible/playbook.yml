@@ -6,4 +6,4 @@
 
   tasks:
     - name: navigate to backend
-      shell: "mkdir Hello_from_gitactions"
+      shell: "mkdir /home/vishwa/Hello_from_gitactions"
