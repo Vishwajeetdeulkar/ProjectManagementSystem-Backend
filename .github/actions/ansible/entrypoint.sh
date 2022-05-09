@@ -5,6 +5,7 @@ echo "[azure]" >> /hosts
 echo "20.83.212.97" >> /hosts
 
 echo "[all:vars]" >> /hosts
+echo "ansible_python_interpreter=/usr/bin/python3" >> /hosts
 echo "ansible_connection=ssh" >> /hosts
 echo "ansible_user= $SSH_USER" >> /hosts
 echo "ansible_ssh_user= $SSH_USER" >> /hosts
