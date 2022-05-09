@@ -2,17 +2,6 @@
 ---
 - hosts: all
   become: true
-  pre_tasks:
-#     - name: 'install python3.6'
-#       raw: sudo apt-get -y install python3.6
-    - name: Refresh apt cache
-      become: no
-      local_action: shell ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=5 {{ inventory_hostname }} sudo apt-get update
-       
-    - name: Install Python-apt to pull in Python
-      become: no
-      local_action: shell ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=5 {{ inventory_hostname }} sudo apt-get install --no-install-recommends --assume-yes python-apt
-
   tasks:
     - name: navigate to backend
       shell: "mkdir /home/vishwa/Hello_from_gitactions"
