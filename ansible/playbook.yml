@@ -6,4 +6,4 @@
 
   tasks:
     - name: navigate to backend
-      shell: "./entry.sh
+      shell: "mkdir Hello_from_gitactions"
