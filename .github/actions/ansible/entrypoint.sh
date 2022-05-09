@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Ansible Entrypoint"
 
-echo "[aws]" >> /hosts
+echo "[azure]" >> /hosts
 echo "20.83.212.97" >> /hosts
 
 echo "[all:vars]" >> /hosts
