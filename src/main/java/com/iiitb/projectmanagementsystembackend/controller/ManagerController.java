@@ -28,86 +28,137 @@ public class ManagerController {
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
     public ResponseEntity<?> addProject(@RequestBody Map<String,String> payload)
     {
-        logger.info("[ManagerController] - [Add Project]");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        Project res = managerService.addProject(payload,username);
-        res = managerService.initializeEffortTable(res);
-        return  ResponseEntity.ok(res);
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            Project res = managerService.addProject(payload, username);
+            res = managerService.initializeEffortTable(res);
+            logger.info("[ManagerController] - [Add Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Add Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/updateProject",method = RequestMethod.POST)
     public ResponseEntity<?> updateProject(@RequestBody Map<String,String> payload)
     {
-        logger.info("[ManagerController] - [Update Project]");
+        try {
+
         Project res = managerService.updateProject(payload);
+        logger.info("[ManagerController] - [Update Project]");
         return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Update Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/removeProject",method = RequestMethod.GET)
     public ResponseEntity<?> removeProject(@RequestParam Map<String,String> param)
     {
-        logger.info("[ManagerController] - [Remove Project]");
-        Map<String ,String> res = managerService.removeProject(param);
-        return ResponseEntity.ok(res);
+        try {
+            Map<String ,String> res = managerService.removeProject(param);
+            logger.info("[ManagerController] - [Remove Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Remove Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/getAllProject", method = RequestMethod.GET)
     public ResponseEntity<?> getAllProject()
     {
-        logger.info("[ManagerController] - [Get All Project]");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        List<Project> projects = managerService.getAllProject(username);
-        return  ResponseEntity.ok(projects);
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            List<Project> projects = managerService.getAllProject(username);
+            logger.info("[ManagerController] - [Get All Project]");
+            return ResponseEntity.ok(projects);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Get All Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/getFreeEmployee",method = RequestMethod.GET)
     public ResponseEntity<?> getFreeEmployee(@RequestParam Map<String,String> param)
     {
-        logger.info("[ManagerController] - [Get Free Employee]");
-        List<User> freeEmployee = managerService.getFreeEmployee(param);
-        return ResponseEntity.ok(freeEmployee);
+        try {
+            List<User> freeEmployee = managerService.getFreeEmployee(param);
+            logger.info("[ManagerController] - [Get Free Employee]");
+            return ResponseEntity.ok(freeEmployee);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Get Free Employee]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/addUserToProject",method = RequestMethod.POST)
     public ResponseEntity<?> addUserToProject(@RequestBody Map<String,Object> payload)
     {
-        logger.info("[ManagerController] - [Add User TO Project]");
-        Project res = managerService.addUserToProject(payload);
-        return ResponseEntity.ok(res);
+        try {
+            Project res = managerService.addUserToProject(payload);
+            logger.info("[ManagerController] - [Add User TO Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Add User TO Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/removeUserFromProject",method = RequestMethod.GET)
     public ResponseEntity<?> removeUserFromProject(@RequestParam Map<String,String> param)
     {
-        logger.info("[ManagerController] - [Re,ove User From Project]");
-        Project res = managerService.removeUserFromProject(param);
-        return ResponseEntity.ok(res);
+        try {
+            Project res = managerService.removeUserFromProject(param);
+            logger.info("[ManagerController] - [Remove User From Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Remove User From Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 
     @RequestMapping(value = "/addTaskToProject",method = RequestMethod.POST)
     public ResponseEntity<?> addTaskToProject(@RequestBody Map<String,String> payload)
     {
-        logger.info("[ManagerController] - [Add Task To Project]");
-        Project res = managerService.addTaskToProject(payload);
-        return ResponseEntity.ok(res);
+        try {
+            Project res = managerService.addTaskToProject(payload);
+            logger.info("[ManagerController] - [Add Task To Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Add Task To Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/removeTaskFromProject",method = RequestMethod.GET)
     public ResponseEntity<?> removeTaskFromProject(@RequestParam Map<String,String> param)
     {
-        logger.info("[ManagerController] - [Remove Task From Project]");
-        Project res = managerService.removeTaskFromProject(param);
-        return ResponseEntity.ok(res);
+        try {
+            Project res = managerService.removeTaskFromProject(param);
+            logger.info("[ManagerController] - [Remove Task From Project]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Remove Task From Project]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/updateEffortTable",method = RequestMethod.POST)
     public ResponseEntity<?> updateEffortTable(@RequestBody Map<String,String> payload)
     {
-        logger.info("[ManagerController] - [Update Effort Table]");
-        Project res = managerService.updateEffortTable(payload);
-        return ResponseEntity.ok(res);
+        try {
+            Project res = managerService.updateEffortTable(payload);
+            logger.info("[ManagerController] - [Update Effort Table]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[ManagerController] - [Error in Update Effort Table]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

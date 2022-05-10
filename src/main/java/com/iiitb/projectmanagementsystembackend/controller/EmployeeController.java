@@ -27,30 +27,45 @@ public class EmployeeController {
     @RequestMapping(value = "/getAllProjects",method = RequestMethod.GET)
     public ResponseEntity<?> getAllProjects()
     {
-        logger.info("[EmployeeController] - [Get All Projects]");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        List<Project> projects = employeeService.getAllProjects(username);
-        return  ResponseEntity.ok(projects);
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            List<Project> projects = employeeService.getAllProjects(username);
+
+            return ResponseEntity.ok(projects);
+        }catch (Exception e){
+            logger.error("[EmployeeController] - [Error in Get All Projects]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/getTaskByProject",method = RequestMethod.GET)
     public ResponseEntity<?> getAllTaskByProjectByUser(@RequestParam Map<String,String> param)
     {
-        logger.info("[EmployeeController] - [Get All Task By Project By User]");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        List<Task> res = employeeService.getAllTaskByProjectByUser(param,username);
-        return ResponseEntity.ok(res);
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            List<Task> res = employeeService.getAllTaskByProjectByUser(param, username);
+            logger.info("[EmployeeController] - [Get All Task By Project By User]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[EmployeeController] - [Error in Get All Task By Project By User]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/updateTaskStatus",method = RequestMethod.POST)
     public ResponseEntity<?> updateTaskStatus(@RequestBody Map<String,String> payload)
     {
-        logger.info("[EmployeeController] - [Update Task Status]");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        List<Task> res = employeeService.updateTaskStatus(payload,username);
-        return ResponseEntity.ok(res);
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            List<Task> res = employeeService.updateTaskStatus(payload, username);
+            logger.info("[EmployeeController] - [Update Task Status]");
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            logger.error("[EmployeeController] - [Error in Update Task Status]");
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
