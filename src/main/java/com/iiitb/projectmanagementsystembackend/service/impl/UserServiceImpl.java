@@ -1,10 +1,8 @@
 package com.iiitb.projectmanagementsystembackend.service.impl;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import com.iiitb.projectmanagementsystembackend.data.repository.UserDao;
 import com.iiitb.projectmanagementsystembackend.data.model.Role;
 import com.iiitb.projectmanagementsystembackend.data.model.User;
@@ -59,11 +57,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User save(UserDto user) {
+    public User save(Map<String,String> payload) {
 
-        User nUser = user.getUserFromDto();
-        nUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-
+//        User nUser = user.getUserFromDto();
+        User nUser = new User();
+        nUser.setUsername(payload.get("username"));
+        nUser.setPassword(bcryptEncoder.encode(payload.get("password")));
+        nUser.setName(payload.get("name"));
+        nUser.setEmail(payload.get("email"));
+        nUser.setBusinessTitle(payload.get("businessTitle"));
 
         Set<Role> roleSet = new HashSet<>();
 

@@ -19,13 +19,7 @@ import java.io.IOException;
 @SpringBootTest(classes = ProjectManagementSystemBackendApplication.class)
 @WebAppConfiguration
 public abstract class AbstractTest {
-    protected MockMvc mvc;
-    @Autowired
-    WebApplicationContext webApplicationContext;
 
-    protected void setUp() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
     protected String mapToJson(Object obj) throws JsonProcessingException
     {
         ObjectMapper objectMapper = new ObjectMapper();

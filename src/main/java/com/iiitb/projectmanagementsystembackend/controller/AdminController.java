@@ -19,7 +19,7 @@ public class AdminController {
     private static final Logger logger = LogManager.getLogger("ProjectManagementSystem");
 
     @Autowired
-    private AdminService adminService;
+    AdminService adminService;
 
     @RequestMapping(value = "/getManagerData", method = RequestMethod.GET)
     public ResponseEntity<?> getAllManager()

@@ -10,6 +10,7 @@ import com.iiitb.projectmanagementsystembackend.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,9 +43,12 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> generateToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> generateToken(@RequestBody Map<String,String> payload) throws AuthenticationException {
         logger.info("[UserController] - [Generate Token]");
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUsername(payload.get("username"));
+        loginUser.setPassword(payload.get("password"));
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getUsername(),
@@ -57,9 +61,9 @@ public class UserController {
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public User saveUser(@RequestBody UserDto user){
+    public User saveUser(@RequestBody Map<String,String> payload){
         logger.info("[UserController] - [Save User]");
-        return userService.save(user);
+        return userService.save(payload);
     }
 
 
