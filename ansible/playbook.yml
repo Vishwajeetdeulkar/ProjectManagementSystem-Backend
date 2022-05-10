@@ -8,8 +8,5 @@
     - name: remove any docker images if exists
       shell: "docker rmi -f $(docker images -aq) || true"
     - name: docker compose up
-      shell: |
-        
-        "cd /home/vishwa"
-        "docker-compose up"
+      shell: "docker-compose up"
 
