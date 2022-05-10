@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         nUser.setName(payload.get("name"));
         nUser.setEmail(payload.get("email"));
         nUser.setBusinessTitle(payload.get("businessTitle"));
-
+        nUser.setPhone(payload.get("phone"));
         Set<Role> roleSet = new HashSet<>();
 
 

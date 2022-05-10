@@ -30,3 +30,7 @@
 2022-05-07 16:25:46 [AdminController.java] [INFO] ProjectManagementSystem [AdminController] - [Get All Employee]
 2022-05-07 16:25:46 [AdminController.java] [INFO] ProjectManagementSystem [AdminController] - [Get All Manager]
 2022-05-07 16:26:38 [UserController.java] [INFO] ProjectManagementSystem [UserController] - [Generate Token]
+2022-05-11 00:04:07 [UserController.java] [INFO] ProjectManagementSystem [UserController] - [Save User]
+2022-05-11 00:09:40 [UserController.java] [INFO] ProjectManagementSystem [UserController] - [Save User]
+2022-05-11 00:14:47 [UserController.java] [INFO] ProjectManagementSystem [UserController] - [Save User]
+2022-05-11 00:14:48 [AdminController.java] [INFO] ProjectManagementSystem [AdminController] - [Delete User]

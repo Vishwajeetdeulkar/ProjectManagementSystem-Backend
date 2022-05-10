@@ -1,7 +1,9 @@
 package com.iiitb.projectmanagementsystembackend;
 
 import com.iiitb.projectmanagementsystembackend.controller.UserController;
+import com.iiitb.projectmanagementsystembackend.data.model.User;
 import com.iiitb.projectmanagementsystembackend.data.model.UserDto;
+import com.iiitb.projectmanagementsystembackend.data.repository.UserDao;
 import com.iiitb.projectmanagementsystembackend.service.UserService;
 import org.apache.catalina.connector.Connector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @SpringBootApplication
@@ -29,12 +34,22 @@ public class ProjectManagementSystemBackendApplication implements CommandLineRun
         SpringApplication.run(ProjectManagementSystemBackendApplication.class, args);
     }
 
-
+    @Autowired
+    private UserDao userDao;
     @Override
     public void run(String... args) throws Exception {
-         UserDto first = new UserDto("admin", "admin", "admin@admin.org", "9960429909", "Neha Kothari", "admin");
-        userService.save(first);
 
+        User user = userDao.findByUsername("admin");
+        if(user==null) {
+            Map<String, String> admin = new HashMap<>();
+            admin.put("username", "admin");
+            admin.put("password", "admin");
+            admin.put("email", "admin@admin.org");
+            admin.put("phone", "7894561230");
+            admin.put("name", "admin");
+            admin.put("businessTitle", "admin");
+            userService.save(admin);
+        }
     }
 
     // Let's configure additional connector to enable support for both HTTP and HTTPS
