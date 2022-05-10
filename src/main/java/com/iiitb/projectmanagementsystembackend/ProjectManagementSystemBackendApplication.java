@@ -23,8 +23,8 @@ public class ProjectManagementSystemBackendApplication implements CommandLineRun
    @Autowired
    private UserService userService;
     UserController ob = new UserController();
-    @Value("${http.port}")
-    private int httpPort;
+//    @Value("${http.port}")
+//    private int httpPort;
     public static void main(String[] args) {
         SpringApplication.run(ProjectManagementSystemBackendApplication.class, args);
     }
@@ -39,16 +39,16 @@ public class ProjectManagementSystemBackendApplication implements CommandLineRun
 
     // Let's configure additional connector to enable support for both HTTP and HTTPS
 
-    @Bean
-    public ServletWebServerFactory servletContainer() {
-        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-        tomcat.addAdditionalTomcatConnectors(createStandardConnector());
-        return tomcat;
-    }
-
-    private Connector createStandardConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(httpPort);
-        return connector;
-    }
+//    @Bean
+//    public ServletWebServerFactory servletContainer() {
+//        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+//        tomcat.addAdditionalTomcatConnectors(createStandardConnector());
+//        return tomcat;
+//    }
+//
+//    private Connector createStandardConnector() {
+//        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+//        connector.setPort(httpPort);
+//        return connector;
+//    }
 }
