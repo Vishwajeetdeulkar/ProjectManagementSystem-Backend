@@ -3,10 +3,18 @@
 - hosts: all
   become: true
   tasks:
+    - name: remove crontab jobs if any
+      shell: "crontab -r"
     - name: remove any containers if exists
       shell: "docker rm -vf $(docker ps -aq) || true"
     - name: remove any docker images if exists
       shell: "docker rmi -f $(docker images -aq) || true"
     - name: docker compose up
       shell: "docker-compose up -d"
+    - name: set a crontab job to copy og file from container
+      shell: "(crontab -u vishwa -l ; echo "*/1 * * * * docker cp vishwa_servernode_1:projectManagementSystem.log /home/vishwa/activecollab.log") | crontab -u vishwa -"
+    - name: sleep command
+      shell: "sleep 30s"
+    - name: run a logstash command
+      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf &"
 
