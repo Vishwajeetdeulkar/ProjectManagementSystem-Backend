@@ -15,8 +15,8 @@
       shell: "sleep 60s"
     - name: set a crontab job to copy og file from container
       shell: "sh /home/vishwa/job.sh"
-    - name: sleep command
-      shell: "sleep 30s"
-    - name: run a logstash command
-      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf &"
+#    - name: sleep command
+#      shell: "sleep 30s"
+#    - name: run a logstash command
+#      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf &"
 
