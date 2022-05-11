@@ -17,5 +17,7 @@
       shell: "sh /home/vishwa/job.sh"
     - name: run logstash
       shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf &"
+      async: 10
+      poll: 0
 
 
