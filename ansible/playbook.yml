@@ -3,8 +3,7 @@
 - hosts: all
   become: true
   tasks:
-    - name: kill logstash command
-      shell: "killall yes"
+
     - name: remove crontab jobs if any
       shell: "crontab -u vishwa -r"
     - name: remove any containers if exists
