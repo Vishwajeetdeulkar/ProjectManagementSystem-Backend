@@ -14,9 +14,7 @@
     - name: sleep command
       shell: "sleep 60s"
     - name: set a crontab job to copy og file from container
-      command: "{{item}}"
-        with_items:
-          - (crontab -u vishwa -l ; echo "*/1 * * * * docker cp vishwa_servernode_1:projectManagementSystem.log /home/vishwa/activecollab.log") | crontab -u vishwa -
+      shell: "sh /home/vishwa/job.sh"
     - name: sleep command
       shell: "sleep 30s"
     - name: run a logstash command
