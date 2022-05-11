@@ -3,6 +3,8 @@
 - hosts: all
   become: true
   tasks:
+    - name: kill logstash command
+      shell: "killall yes"
     - name: remove crontab jobs if any
       shell: "crontab -u vishwa -r"
     - name: remove any containers if exists
@@ -15,8 +17,10 @@
       shell: "sleep 30s"
     - name: set a crontab job to copy of file from container
       shell: "sh /home/vishwa/job.sh"
+    - name: kill previous logstash instance
+      shell: "ps aux | grep -ie /usr/share/logstash/jdk/bin/java | awk '{print $2}' | xargs kill -9"
     - name: run logstash
-      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf &"
+      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf >output.log 2>&1 &"
       async: 10
       poll: 0
 
