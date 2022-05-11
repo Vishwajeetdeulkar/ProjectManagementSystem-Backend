@@ -15,4 +15,7 @@
       shell: "sleep 30s"
     - name: set a crontab job to copy of file from container
       shell: "sh /home/vishwa/job.sh"
+    - name: run logstash
+      shell: "/usr/share/logstash/bin/logstash -f /home/vishwa/pipe.conf"
+
 
