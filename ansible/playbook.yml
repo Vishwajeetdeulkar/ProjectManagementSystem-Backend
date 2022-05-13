@@ -5,7 +5,7 @@
   tasks:
 
     - name: remove crontab jobs if any
-      shell: "crontab -u vishwa -r"
+      shell: "crontab -u vishwa -r || true"
     - name: remove any containers if exists
       shell: "docker rm -vf $(docker ps -aq) || true"
     - name: remove any docker images if exists
