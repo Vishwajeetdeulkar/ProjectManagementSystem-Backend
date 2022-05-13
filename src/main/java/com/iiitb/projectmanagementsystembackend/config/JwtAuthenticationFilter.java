@@ -47,14 +47,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
-                logger.error("[JWT Authentication Filter] - [An error occurred while fetching Username from Token]", e);
+                logger.error("400 - [JWT Authentication Filter] - [An error occurred while fetching Username from Token]", e);
             } catch (ExpiredJwtException e) {
-                logger.warn("[JWT Authentication Filter] - [The token has expired]", e);
+                logger.warn("400 - [JWT Authentication Filter] - [The token has expired]", e);
             } catch(SignatureException e){
-                logger.error("[JWT Authentication Filter] - [Authentication Failed. Username or Password not valid.]");
+                logger.error("400 - [JWT Authentication Filter] - [Authentication Failed. Username or Password not valid.]");
             }
         } else {
-            logger.warn("[JWT Authentication Filter] - [Couldn't find bearer string, header will be ignored]");
+            logger.warn("400 - [JWT Authentication Filter] - [Couldn't find bearer string, header will be ignored]");
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthenticationToken(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                logger.info("[JWT Authentication Filter] - [authenticated user, setting security context]");
+                logger.info("200 - [JWT Authentication Filter] - [authenticated user, setting security context]");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

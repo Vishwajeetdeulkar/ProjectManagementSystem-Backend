@@ -33,10 +33,10 @@ public class ManagerController {
             String username = userDetails.getUsername();
             Project res = managerService.addProject(payload, username);
             res = managerService.initializeEffortTable(res);
-            logger.info("[ManagerController] - [Add Project]");
+            logger.info("200 - [ManagerController] - [Add Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Add Project]");
+            logger.error("400 - [ManagerController] - [Error in Add Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -47,10 +47,10 @@ public class ManagerController {
         try {
 
         Project res = managerService.updateProject(payload);
-        logger.info("[ManagerController] - [Update Project]");
+        logger.info("200 - [ManagerController] - [Update Project]");
         return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Update Project]");
+            logger.error("400 - [ManagerController] - [Error in Update Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -60,10 +60,10 @@ public class ManagerController {
     {
         try {
             Map<String ,String> res = managerService.removeProject(param);
-            logger.info("[ManagerController] - [Remove Project]");
+            logger.info("200 - [ManagerController] - [Remove Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Remove Project]");
+            logger.error("400 - [ManagerController] - [Error in Remove Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -75,10 +75,10 @@ public class ManagerController {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = userDetails.getUsername();
             List<Project> projects = managerService.getAllProject(username);
-            logger.info("[ManagerController] - [Get All Project]");
+            logger.info("200 - [ManagerController] - [Get All Project]");
             return ResponseEntity.ok(projects);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Get All Project]");
+            logger.error("400 - [ManagerController] - [Error in Get All Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -88,10 +88,10 @@ public class ManagerController {
     {
         try {
             List<User> freeEmployee = managerService.getFreeEmployee(param);
-            logger.info("[ManagerController] - [Get Free Employee]");
+            logger.info("200 - [ManagerController] - [Get Free Employee]");
             return ResponseEntity.ok(freeEmployee);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Get Free Employee]");
+            logger.error("400 - [ManagerController] - [Error in Get Free Employee]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -101,10 +101,10 @@ public class ManagerController {
     {
         try {
             Project res = managerService.addUserToProject(payload);
-            logger.info("[ManagerController] - [Add User TO Project]");
+            logger.info("200 - [ManagerController] - [Add User TO Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Add User TO Project]");
+            logger.error("400 - [ManagerController] - [Error in Add User TO Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -114,10 +114,10 @@ public class ManagerController {
     {
         try {
             Project res = managerService.removeUserFromProject(param);
-            logger.info("[ManagerController] - [Remove User From Project]");
+            logger.info("200 - [ManagerController] - [Remove User From Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Remove User From Project]");
+            logger.error("400 - [ManagerController] - [Remove User From Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -128,10 +128,10 @@ public class ManagerController {
     {
         try {
             Project res = managerService.addTaskToProject(payload);
-            logger.info("[ManagerController] - [Add Task To Project]");
+            logger.info("200 - [ManagerController] - [Add Task To Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Add Task To Project]");
+            logger.error("400 - [ManagerController] - [Error in Add Task To Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -141,10 +141,10 @@ public class ManagerController {
     {
         try {
             Project res = managerService.removeTaskFromProject(param);
-            logger.info("[ManagerController] - [Remove Task From Project]");
+            logger.info("200 - [ManagerController] - [Remove Task From Project]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Remove Task From Project]");
+            logger.error("400 - [ManagerController] - [Error in Remove Task From Project]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -154,10 +154,10 @@ public class ManagerController {
     {
         try {
             Project res = managerService.updateEffortTable(payload);
-            logger.info("[ManagerController] - [Update Effort Table]");
+            logger.info("200 - [ManagerController] - [Update Effort Table]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[ManagerController] - [Error in Update Effort Table]");
+            logger.error("400 - [ManagerController] - [Error in Update Effort Table]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -19,7 +19,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint, Seriali
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        logger.error("[Unauthorized Entry Point] - [Don't have access to connect]");
+        logger.error("401 - [Unauthorized Entry Point] - [Don't have access to connect]");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 

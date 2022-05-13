@@ -57,10 +57,10 @@ public class UserController {
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             final String token = jwtTokenUtil.generateToken(authentication);
-            logger.info("[UserController] - [Generate Token]");
+            logger.info("200 - [UserController] - [Generate Token]");
             return ResponseEntity.ok(new AuthToken(token));
         }catch (Exception e){
-            logger.error("[UserController] - [Error in Generate Token]");
+            logger.error("400 - [UserController] - [Error in Generate Token]");
             return ResponseEntity.badRequest().body(e.getMessage());
 
         }
@@ -70,10 +70,10 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody Map<String,String> payload){
        try {
            User user = userService.save(payload);
-           logger.info("[UserController] - [Save User]");
+           logger.info("200 - [UserController] - [Save User]");
            return ResponseEntity.ok(user);
        }catch (Exception e){
-           logger.error("[UserController] - [Error in Save User]");
+           logger.error("400 - [UserController] - [Error in Save User]");
            return ResponseEntity.badRequest().body(e.getMessage());
        }
 
@@ -86,10 +86,10 @@ public class UserController {
         try {
             Map<String, String> res = new HashMap<>();
             res.put("msg", "Only Manager Can Read This");
-            logger.info("[UserController] - [Manager Ping]");
+            logger.info("200 - [UserController] - [Manager Ping]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[UserController] - [Error in Manager Ping]");
+            logger.error("400 - [UserController] - [Error in Manager Ping]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -100,10 +100,10 @@ public class UserController {
         try {
             Map<String, String> res = new HashMap<>();
             res.put("msg", "Only admin Can Read This");
-            logger.info("[UserController] - [Admin Ping]");
+            logger.info("200 - [UserController] - [Admin Ping]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[UserController] - [Error in Admin Ping]");
+            logger.error("400 - [UserController] - [Error in Admin Ping]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -114,10 +114,10 @@ public class UserController {
         try {
             Map<String, String> res = new HashMap<>();
             res.put("msg", "Only Employee Can Read This");
-            logger.info("[UserController] - [Employee Pin]");
+            logger.info("200 - [UserController] - [Employee Pin]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[UserController] - [Error in Employee Pin]");
+            logger.error("400 - [UserController] - [Error in Employee Pin]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

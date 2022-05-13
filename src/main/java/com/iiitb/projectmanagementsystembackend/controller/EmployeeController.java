@@ -31,10 +31,10 @@ public class EmployeeController {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = userDetails.getUsername();
             List<Project> projects = employeeService.getAllProjects(username);
-
+            logger.error("200 - [EmployeeController] - [Get All Projects]");
             return ResponseEntity.ok(projects);
         }catch (Exception e){
-            logger.error("[EmployeeController] - [Error in Get All Projects]");
+            logger.error("400 - [EmployeeController] - [Error in Get All Projects]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -46,10 +46,10 @@ public class EmployeeController {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = userDetails.getUsername();
             List<Task> res = employeeService.getAllTaskByProjectByUser(param, username);
-            logger.info("[EmployeeController] - [Get All Task By Project By User]");
+            logger.info("200 - [EmployeeController] - [Get All Task By Project By User]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[EmployeeController] - [Error in Get All Task By Project By User]");
+            logger.error("400 - [EmployeeController] - [Error in Get All Task By Project By User]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -61,10 +61,10 @@ public class EmployeeController {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = userDetails.getUsername();
             List<Task> res = employeeService.updateTaskStatus(payload, username);
-            logger.info("[EmployeeController] - [Update Task Status]");
+            logger.info("200 - [EmployeeController] - [Update Task Status]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[EmployeeController] - [Error in Update Task Status]");
+            logger.error("400 - [EmployeeController] - [Error in Update Task Status]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

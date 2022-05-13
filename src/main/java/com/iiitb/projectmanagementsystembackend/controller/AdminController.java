@@ -26,10 +26,10 @@ public class AdminController {
     {
         try {
             List<User> managers = adminService.getAllManager();
-            logger.info("[AdminController] - [Get All Manager]");
+            logger.info("200 - [AdminController] - [Get All Manager]");
             return ResponseEntity.ok(managers);
         }catch(Exception e){
-            logger.error("[AdminController] - [Error in Get All Manager]");
+            logger.error("400 - [AdminController] - [Error in Get All Manager]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -39,10 +39,10 @@ public class AdminController {
     {
         try {
             List<User> emps = adminService.getAllEmployee();
-            logger.info("[AdminController] - [Get All Employee]");
+            logger.info("200 - [AdminController] - [Get All Employee]");
             return ResponseEntity.ok(emps);
         }catch (Exception e){
-            logger.error("[AdminController] - [Error in Get All Employee]");
+            logger.error("400 - [AdminController] - [Error in Get All Employee]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -52,10 +52,10 @@ public class AdminController {
     {
         try {
             Map<String,String> res = adminService.deleteUser(param);
-            logger.info("[AdminController] - [Delete User]");
+            logger.info("200 - [AdminController] - [Delete User]");
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            logger.error("[AdminController] - [Error in Delete User]");
+            logger.error("400 - [AdminController] - [Error in Delete User]");
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
