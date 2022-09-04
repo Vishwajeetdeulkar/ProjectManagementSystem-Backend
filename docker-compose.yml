@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  clientnode:
+    image: vishwajeet1321/project-management-system-frontend:latest
+    ports:
+      - "8085:80"
+    networks:
+      net_ubuntu:
+        ipv4_address: 172.28.1.5
+  servernode:
+    image: vishwajeet1321/project-management-system-backend:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+    ports:
+      - "8086:8086"
+    depends_on:
+      - "dbnode"
+    environment:
+      MYSQL_HOST: "dbnode"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "password"
+      MYSQL_PORT: "3306"
+    networks: 
+      net_ubuntu:
+        ipv4_address: 172.28.1.6
+  dbnode:
+    image: mysql 
+    ports:
+     - "3306:3306"
+    volumes: 
+      - /home/vishwa/Documents/projects/DockerCompose/dbnode:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "projectmanagementsystem"
+      MYSQL_PASSWORD: "password"
+    networks:
+      net_ubuntu:
+        ipv4_address: 172.28.1.7
+
+networks:
+  net_ubuntu:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.28.1.0/24
+
+
+    
